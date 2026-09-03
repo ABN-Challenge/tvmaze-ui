@@ -63,7 +63,7 @@ const submitLabel = computed(() => props.label ?? 'Search TV shows')
         <circle cx="8.5" cy="8.5" r="5.5" />
         <path d="M12.5 12.5 17 17" stroke-linecap="round" />
       </svg>
-      <span :class="compact ? 'sr-only sm:not-sr-only' : undefined">Search</span>
+      <span :class="compact ? 'hidden sm:inline' : undefined">Search</span>
     </Button>
   </form>
 </template>

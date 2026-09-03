@@ -47,6 +47,10 @@ npm run build-storybook
 
 Remote entry (dev): `http://localhost:5001/remoteEntry.js`
 
+Consumers (`tvmaze`, `tvmaze-catalog`) default to the **deployed** remote entry, so
+they run without this repo. Start this dev server and use their `dev:local` scripts
+when you want them to pick up local changes here.
+
 ## Storybook
 
 Stories are grouped as `Atoms/*`, `Molecules/*`, `Organisms/*` with autodocs and controls.

@@ -66,10 +66,11 @@ describe('SearchInput', () => {
     const wrapper = mount(SearchInput, { props: { modelValue: '', compact: true, label: 'Site search' } })
     const submit = wrapper.get('[data-testid="search-submit"]')
 
-    // The icon keeps the control narrow on phones; the label stays for a11y.
+    // The icon keeps the control narrow on phones; aria-label carries the name
+    // while the visible text is hidden below sm.
     expect(wrapper.find('[data-testid="search-submit-icon"]').exists()).toBe(true)
     expect(submit.attributes('aria-label')).toBe('Site search')
-    expect(submit.get('span').classes()).toContain('sr-only')
+    expect(submit.get('span').classes()).toEqual(['hidden', 'sm:inline'])
   })
 
   it('uses the default accessible name for a compact button without a label', () => {
