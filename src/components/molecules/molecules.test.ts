@@ -67,10 +67,11 @@ describe('SearchInput', () => {
     const submit = wrapper.get('[data-testid="search-submit"]')
 
     // The icon keeps the control narrow on phones; aria-label carries the name
-    // while the visible text is hidden below sm.
+    // while the visible text uses max-sm:hidden so it appears at the same sm
+    // breakpoint where the icon is sm:hidden.
     expect(wrapper.find('[data-testid="search-submit-icon"]').exists()).toBe(true)
     expect(submit.attributes('aria-label')).toBe('Site search')
-    expect(submit.get('span').classes()).toEqual(['hidden', 'sm:inline'])
+    expect(submit.get('span').classes()).toEqual(['max-sm:hidden'])
   })
 
   it('uses the default accessible name for a compact button without a label', () => {
