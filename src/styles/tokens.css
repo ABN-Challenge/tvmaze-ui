@@ -1,0 +1,18 @@
+:root {
+  --tv-bg: #f3f7f6;
+  --tv-surface: #ffffff;
+  --tv-surface-2: #e7efed;
+  --tv-border: #c5d5d1;
+  --tv-header: #004d41;
+  --tv-text: #0f1f1c;
+  --tv-muted: #5a716c;
+  --tv-accent: #004d41;
+  --tv-accent-2: #009286;
+  --tv-cta: #ffd200;
+  --tv-warning: #ffd200;
+  --tv-danger: #c62828;
+  --tv-radius: 0.5rem;
+  --tv-on-header: #ffffff;
+  --tv-on-cta: #004d41;
+  color-scheme: light;
+}

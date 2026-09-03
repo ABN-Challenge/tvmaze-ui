@@ -1,0 +1,71 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-tvmaze-ui
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.0'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env:
+          NODE_ENV: production
+      - run: npm run build-storybook
+      - name: Merge Storybook root with federation remote
+        run: |
+          mkdir -p pages-dist
+          cp -R storybook-static/. pages-dist/
+          # Preserve Storybook index.html; publish remoteEntry + MF chunks for the host.
+          cp dist/remoteEntry.js pages-dist/remoteEntry.js
+          if [ -d dist/assets ]; then
+            mkdir -p pages-dist/assets
+            shopt -s nullglob
+            for f in dist/assets/*; do
+              base=$(basename "$f")
+              if [ ! -e "pages-dist/assets/$base" ]; then
+                cp -R "$f" "pages-dist/assets/$base"
+              fi
+            done
+          fi
+          shopt -s nullglob
+          for f in dist/*; do
+            base=$(basename "$f")
+            case "$base" in
+              index.html|assets|remoteEntry.js) continue ;;
+            esac
+            if [ ! -e "pages-dist/$base" ]; then
+              cp -R "$f" "pages-dist/$base"
+            fi
+          done
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
