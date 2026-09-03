@@ -1,5 +1,5 @@
 import preview from '../../../.storybook/preview'
-import { expect, fn, userEvent } from 'storybook/test'
+import { expect, fn } from 'storybook/test'
 import { ref, watch } from 'vue'
 import ResponsiveSearch from './ResponsiveSearch.vue'
 
@@ -9,14 +9,13 @@ const meta = preview.meta({
   parameters: {
     docs: {
       description: {
-        component: 'Desktop search field + mobile Search button for the app header.',
+        component: 'Header search field for all viewports.',
       },
     },
   },
   args: {
     modelValue: '',
     onSubmit: fn(),
-    onMobileSearch: fn(),
     'onUpdate:modelValue': fn(),
   },
   render: (args) => ({
@@ -37,7 +36,6 @@ const meta = preview.meta({
           v-model="value"
           :placeholder="args.placeholder"
           @submit="args.onSubmit"
-          @mobile-search="args.onMobileSearch"
         />
       </div>
     `,
@@ -52,7 +50,7 @@ export const Desktop = meta.story({
   },
 })
 
-Desktop.test('shows the desktop search field', async ({ canvas }) => {
+Desktop.test('shows the search field', async ({ canvas }) => {
   await expect(await canvas.findByRole('searchbox')).toBeInTheDocument()
 })
 
@@ -64,8 +62,6 @@ export const Mobile = Desktop.extend({
   },
 })
 
-Mobile.test('shows the mobile Search button', async ({ canvas, args }) => {
-  const button = await canvas.findByRole('button', { name: 'Search' })
-  await userEvent.click(button)
-  await expect(args.onMobileSearch).toHaveBeenCalled()
+Mobile.test('shows the search field on mobile', async ({ canvas }) => {
+  await expect(await canvas.findByRole('searchbox')).toBeInTheDocument()
 })

@@ -22,7 +22,7 @@ export default defineConfig({
         filename: 'remoteEntry.js',
         exposes: {
           './theme': './src/theme.ts',
-          './styles': './src/style.css',
+          './styles': './src/load-styles.ts',
           './SkipLink': './src/components/atoms/SkipLink.vue',
           './Button': './src/components/atoms/Button.vue',
           './RatingBadge': './src/components/atoms/RatingBadge.vue',
