@@ -7,12 +7,12 @@ const meta = preview.meta({
   component: ShowCard,
   tags: ['autodocs'],
   argTypes: {
-    to: { control: 'text', description: 'Optional href for navigation' },
+    to: { control: 'text', description: 'Optional router target for navigation' },
     show: { control: 'object' },
   },
   args: {
     show: demoShow,
-    to: '#/shows/1',
+    to: '/shows/1',
   },
 })
 

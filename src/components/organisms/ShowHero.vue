@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { ShowCardModel } from '../../types'
 import RatingBadge from '../atoms/RatingBadge.vue'
 
-defineProps<{
+const props = defineProps<{
   show: ShowCardModel
   castNames?: string[]
 }>()
+
+/** Prefer the full-size poster; fall back to the thumbnail. */
+const posterSrc = computed(() => props.show.image?.original || props.show.image?.medium || '')
 </script>
 
 <template>
@@ -19,8 +23,8 @@ defineProps<{
     >
       <div class="relative aspect-[2/3] bg-[var(--tv-surface-2)]">
         <img
-          v-if="show.image?.original || show.image?.medium"
-          :src="show.image.original || show.image.medium || ''"
+          v-if="posterSrc"
+          :src="posterSrc"
           :alt="`Poster for ${show.name}`"
           class="h-full w-full object-cover"
         />

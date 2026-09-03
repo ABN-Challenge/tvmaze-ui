@@ -1,18 +1,20 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import type { ShowCardModel } from '../../types'
 import RatingBadge from '../atoms/RatingBadge.vue'
 
 defineProps<{
   show: ShowCardModel
+  /** Router target. Omit to render a non-interactive card. */
   to?: string
 }>()
 </script>
 
 <template>
   <component
-    :is="to ? 'a' : 'div'"
-    :href="to"
-    class="group block w-36 shrink-0 snap-start focus-visible:outline-none"
+    :is="to ? RouterLink : 'div'"
+    :to="to"
+    class="group block w-36 shrink-0 snap-start rounded-[var(--tv-radius)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--tv-accent-2)]"
     data-testid="show-card"
   >
     <article

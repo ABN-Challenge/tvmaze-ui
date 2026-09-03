@@ -9,7 +9,7 @@ const meta = preview.meta({
   args: {
     shows: demoShows,
     label: 'Search results',
-    getShowLink: (show: { id: number }) => `#/shows/${show.id}`,
+    getShowLink: (show: { id: number }) => `/shows/${show.id}`,
   },
 })
 

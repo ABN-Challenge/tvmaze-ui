@@ -13,7 +13,7 @@ const meta = preview.meta({
   args: {
     category: 'Drama',
     shows: demoShows,
-    getShowLink: (show: { id: number }) => `#/shows/${show.id}`,
+    getShowLink: (show: { id: number }) => `/shows/${show.id}`,
   },
 })
 

@@ -1,8 +1,15 @@
 import { definePreview } from '@storybook/vue3-vite'
+import { setup } from '@storybook/vue3'
 import addonA11y from '@storybook/addon-a11y'
 import addonDocs from '@storybook/addon-docs'
 import addonVitest from '@storybook/addon-vitest'
+import { storybookRouter } from './router'
 import '../src/style.css'
+
+// ShowCard renders RouterLink, so stories need a router instance.
+setup((app) => {
+  app.use(storybookRouter)
+})
 
 export default definePreview({
   addons: [addonDocs(), addonA11y(), addonVitest()],

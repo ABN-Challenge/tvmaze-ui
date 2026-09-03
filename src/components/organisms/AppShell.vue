@@ -18,7 +18,7 @@ withDefaults(
   <div class="min-h-screen" data-testid="app-shell">
     <SkipLink :href="`#${mainId}`" />
     <slot name="header" />
-    <main :id="mainId">
+    <main :id="mainId" tabindex="-1" class="focus:outline-none">
       <slot />
     </main>
     <slot v-if="showFooter" name="footer">

@@ -43,6 +43,7 @@ export default defineConfig({
         },
         shared: {
           vue: { singleton: true, requiredVersion: '3.5.13' },
+          'vue-router': { singleton: true, requiredVersion: '4.5.0' },
         },
       }),
   ].filter(Boolean),
@@ -79,5 +80,16 @@ export default defineConfig({
     // Unit defaults; vitest.workspace.ts defines named unit + storybook projects.
     environment: 'jsdom',
     globals: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/components/**/*.vue', 'src/load-styles.ts', 'src/theme.ts'],
+      thresholds: {
+        lines: 100,
+        functions: 100,
+        branches: 100,
+        statements: 100,
+      },
+    },
   },
 })

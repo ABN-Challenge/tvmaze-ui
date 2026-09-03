@@ -1,6 +1,7 @@
 import preview from '../../../.storybook/preview'
+import { expect } from 'storybook/test'
 import AppHeader from './AppHeader.vue'
-import SearchInput from '../molecules/SearchInput.vue'
+import ResponsiveSearch from '../molecules/ResponsiveSearch.vue'
 import { ref } from 'vue'
 
 const meta = preview.meta({
@@ -18,14 +19,14 @@ const meta = preview.meta({
     homeHref: '#/',
   },
   render: (args) => ({
-    components: { AppHeader, SearchInput },
+    components: { AppHeader, ResponsiveSearch },
     setup() {
       const query = ref('girls')
       return { args, query }
     },
     template: `
       <AppHeader v-bind="args">
-        <SearchInput v-model="query" />
+        <ResponsiveSearch v-model="query" />
       </AppHeader>
     `,
   }),
@@ -39,4 +40,19 @@ export const TitleOnly = meta.story({
     setup: () => ({ args }),
     template: `<AppHeader v-bind="args" />`,
   }),
+})
+
+export const Mobile = meta.story({
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile',
+    },
+  },
+})
+
+Mobile.test('keeps the search field usable at 375px', async ({ canvas }) => {
+  const search = await canvas.findByRole('searchbox')
+  await expect(search).toBeVisible()
+  // The field must not be squeezed out by the brand block.
+  await expect(search.getBoundingClientRect().width).toBeGreaterThan(120)
 })

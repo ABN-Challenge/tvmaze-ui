@@ -39,7 +39,7 @@ const demoShows: ShowCardModel[] = [
     <div class="mx-auto max-w-7xl space-y-8 py-6">
       <ErrorBanner message="Sample error banner" />
       <SkeletonRow />
-      <GenreRow category="Drama" :shows="demoShows" :get-show-link="(s) => `/#/shows/${s.id}`" />
+      <GenreRow category="Drama" :shows="demoShows" :get-show-link="(s) => `/shows/${s.id}`" />
       <EmptyState title="Nothing here" message="This is the local UI playground." />
       <div class="px-4 sm:px-6">
         <ShowHero :show="demoShows[0]" :cast-names="['Alice', 'Bob']" />
