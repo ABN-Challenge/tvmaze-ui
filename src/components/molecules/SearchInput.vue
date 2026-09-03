@@ -21,6 +21,7 @@ const inputId = computed(() => props.id ?? 'tvmaze-search')
   <form
     class="flex w-full max-w-xl items-center gap-2"
     role="search"
+    :aria-label="label ?? 'Search TV shows'"
     @submit.prevent="emit('submit')"
   >
     <label class="sr-only" :for="inputId">{{ label ?? 'Search TV shows' }}</label>

@@ -54,8 +54,12 @@ Empty.test('submits the typed query', async ({ canvas, args }) => {
 })
 
 Empty.test('exposes a labelled search form', async ({ canvas }) => {
-  await expect(await canvas.findByRole('search')).toBeInTheDocument()
-  await expect(await canvas.findByLabelText('Search TV shows')).toBeInTheDocument()
+  await expect(
+    await canvas.findByRole('search', { name: 'Search TV shows' }),
+  ).toBeInTheDocument()
+  await expect(
+    await canvas.findByRole('searchbox', { name: 'Search TV shows' }),
+  ).toBeInTheDocument()
 })
 
 export const Prefilled = meta.story({

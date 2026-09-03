@@ -5,6 +5,9 @@ import Button from '../atoms/Button.vue'
 defineProps<{
   modelValue: string
   placeholder?: string
+  /** Accessible name for the header search landmark (must differ from page search). */
+  label?: string
+  id?: string
 }>()
 
 const emit = defineEmits<{
@@ -20,6 +23,8 @@ const emit = defineEmits<{
       <SearchInput
         :model-value="modelValue"
         :placeholder="placeholder"
+        :label="label ?? 'Site search'"
+        :id="id ?? 'tvmaze-header-search'"
         @update:model-value="emit('update:modelValue', $event)"
         @submit="emit('submit')"
       />
